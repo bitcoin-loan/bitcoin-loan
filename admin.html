@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<title>Admin Panel</title>
+</head>
+<body>
+
+<div class="main-content">
+<h1>Admin Panel</h1>
+
+<div class="premium-card">
+    <h3>Total Users</h3>
+    <p id="totalUsers">1</p>
+</div>
+
+<div class="premium-card">
+    <h3>Total Loans Issued</h3>
+    <p id="totalLoans">$0</p>
+</div>
+
+</div>
+
+<script>
+document.getElementById("totalLoans").innerText =
+"$" + (localStorage.getItem("loan") || 0);
+</script>
+
+</body>
+</html>
