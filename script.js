@@ -13,3 +13,19 @@ async function fetchBTCPrice() {
 }
 
 fetchBTCPrice();
+function applyLoan(){
+    let duration = document.getElementById("loanDuration").value;
+
+    let baseLoan = (btcBalance * btcPrice) * 0.5;
+
+    let interestRate = 0;
+    if(duration == 7) interestRate = 0.05;
+    if(duration == 14) interestRate = 0.08;
+    if(duration == 30) interestRate = 0.12;
+
+    let totalLoan = baseLoan + (baseLoan * interestRate);
+
+    loan = totalLoan;
+    localStorage.setItem("loan", loan);
+    document.getElementById("activeLoan").innerText = "$" + totalLoan.toFixed(2);
+}
