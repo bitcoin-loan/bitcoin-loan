@@ -1,20 +1,15 @@
-let btcPrice = 40000; // Static price simulation
+let btcPrice = 0;
 
-function showLogin() {
-    document.getElementById("loginBox").style.display = "block";
-}
-
-function login() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    if (email && password) {
-        localStorage.setItem("user", email);
-        localStorage.setItem("btcBalance", 0);
-        localStorage.setItem("loan", 0);
-        window.location.href = "dashboard.html";
-    } else {
-        alert("Enter login details");
+async function fetchBTCPrice() {
+    try {
+        let response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+        let data = await response.json();
+        btcPrice = data.bitcoin.usd;
+        document.getElementById("btcPrice").innerText = "BTC Price: $" + btcPrice;
+    } catch (error) {
+        document.getElementById("btcPrice").innerText = "BTC Price: $40,000";
+        btcPrice = 40000;
     }
 }
 
+fetchBTCPrice();
