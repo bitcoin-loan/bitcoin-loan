@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - BitVault</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <h2>₿ BitVault</h2>
+        <ul>
+            <li class="active">Dashboard</li>
+            <li>Loans</li>
+            <li>Collateral</li>
+            <li onclick="logout()">Logout</li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="top-bar">
+            <h1>Dashboard</h1>
+            <div class="price">BTC Price: $40,000</div>
+        </div>
+
+        <div class="cards">
+
+            <div class="premium-card">
+                <h3>Bitcoin Collateral</h3>
+                <p id="btcBalance">0 BTC</p>
+                <input type="number" id="btcInput" placeholder="Deposit BTC">
+                <button onclick="deposit()" class="primary-btn">Deposit</button>
+            </div>
+
+            <div class="premium-card">
+                <h3>Loan Eligibility</h3>
+                <p id="loanEligible">$0</p>
+                <button onclick="applyLoan()" class="primary-btn">Request Loan</button>
+            </div>
+
+            <div class="premium-card">
+                <h3>Active Loan</h3>
+                <p id="activeLoan">$0</p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+let btcBalance = parseFloat(localStorage.getItem("btcBalance")) || 0;
+let loan = parseFloat(localStorage.getItem("loan")) || 0;
+
+document.getElementById("btcBalance").innerText = btcBalance + " BTC";
+document.getElementById("activeLoan").innerText = "$" + loan;
+
+function deposit(){
+    let input = parseFloat(document.getElementById("btcInput").value);
+    if(!input) return;
+
+    btcBalance += input;
+    localStorage.setItem("btcBalance", btcBalance);
+    document.getElementById("btcBalance").innerText = btcBalance + " BTC";
+
+    let eligible = (btcBalance * 40000) * 0.5;
+    document.getElementById("loanEligible").innerText = "$" + eligible;
+}
+
+function applyLoan(){
+    let eligible = (btcBalance * 40000) * 0.5;
+    loan = eligible;
+    localStorage.setItem("loan", loan);
+    document.getElementById("activeLoan").innerText = "$" + loan;
+}
+</script>
+
+</body>
+</html>
